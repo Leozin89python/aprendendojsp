@@ -15,28 +15,24 @@ import javax.servlet.annotation.WebFilter;
 import br.com.aocp.connection.SingletonConnetion;
 
 @WebFilter(filterName = "conexaoFilter", servletNames = { "ClientePessoaContoller" })
-public class FilterConnection {
+public class FilterConnection implements Filter {
 
-	private static Connection connection = new SingletonConnetion()
-			.getConnection();
+	private static Connection connection = null;
 
+	@Override
 	public void destroy() {
-		try {
-			connection.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
 	}
 
+	@Override
 	public void doFilter(ServletRequest request, ServletResponse response,
 			FilterChain chain) throws IOException, ServletException {
 		try {
-			// request.setCharacterEncoding("UTF-8");
+			request.setCharacterEncoding("UTF-8");
 			connection = SingletonConnetion.getConnection();
 			chain.doFilter(request, response);
 			connection.commit();
-			// response.setCharacterEncoding("UTF-8");
-			// response.setContentType("text/html; charset=UTF-8");
+			response.setCharacterEncoding("UTF-8");
+			response.setContentType("text/html; charset=UTF-8");
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -51,6 +47,8 @@ public class FilterConnection {
 		}
 	}
 
+	@SuppressWarnings("static-access")
+	@Override
 	public void init(FilterConfig arg0) throws ServletException {
 		connection = new SingletonConnetion().getConnection();
 	}
