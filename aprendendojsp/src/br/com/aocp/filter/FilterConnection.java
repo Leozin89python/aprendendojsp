@@ -17,10 +17,16 @@ import br.com.aocp.connection.SingletonConnetion;
 @WebFilter(filterName = "conexaoFilter", servletNames = { "ClientePessoaContoller" })
 public class FilterConnection implements Filter {
 
-	private Connection connection = SingletonConnetion.getConnection();
+	private static Connection connection = new SingletonConnetion()
+			.getConnection();
 
 	@Override
 	public void destroy() {
+		try {
+			connection.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -47,8 +53,8 @@ public class FilterConnection implements Filter {
 		}
 	}
 
+	@Override
 	public void init(FilterConfig arg0) throws ServletException {
-
+		connection = new SingletonConnetion().getConnection();
 	}
-
 }
