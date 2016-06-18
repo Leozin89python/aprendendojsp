@@ -15,7 +15,7 @@ import javax.servlet.annotation.WebFilter;
 import br.com.aocp.connection.SingletonConnetion;
 
 @WebFilter(filterName = "conexaoFilter", servletNames = { "ClientePessoaContoller" })
-public class FilterConnection implements Filter {
+public class FilterConnection {
 
 	private static Connection connection = new SingletonConnetion()
 			.getConnection();
@@ -28,7 +28,6 @@ public class FilterConnection implements Filter {
 		}
 	}
 
-	@Override
 	public void doFilter(ServletRequest request, ServletResponse response,
 			FilterChain chain) throws IOException, ServletException {
 		try {
