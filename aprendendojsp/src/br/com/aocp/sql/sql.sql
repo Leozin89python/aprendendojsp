@@ -26,16 +26,7 @@ ALTER TABLE serialcliente
 ALTER TABLE serialclientefone
   OWNER TO postgres;
   
-  CREATE SEQUENCE serialemail
-  INCREMENT 1
-  MINVALUE 1
-  MAXVALUE 9223372036854775807
-  START 7
-  CACHE 1;
-ALTER TABLE serialemail
-  OWNER TO postgres;
-  
-  
+
   CREATE TABLE cliente_pessoa_fisica
 (
   id bigint NOT NULL DEFAULT nextval('serialcliente'::regclass),
@@ -52,23 +43,7 @@ WITH (
 ALTER TABLE cliente_pessoa_fisica
   OWNER TO postgres;
   
-  
-  CREATE TABLE email_cliente
-(
-  id bigint NOT NULL DEFAULT nextval('serialemail'::regclass),
-  email character varying NOT NULL,
-  clientepessoafisica bigint NOT NULL,
-  CONSTRAINT email_cliente_pkey PRIMARY KEY (id),
-  CONSTRAINT email_cliente_clientepessoafisica_fkey FOREIGN KEY (clientepessoafisica)
-      REFERENCES cliente_pessoa_fisica (id) MATCH SIMPLE
-      ON UPDATE NO ACTION ON DELETE NO ACTION
-)
-WITH (
-  OIDS=FALSE
-);
-ALTER TABLE email_cliente
-  OWNER TO postgres;
-  
+
   
   CREATE TABLE telefone_cliente
 (

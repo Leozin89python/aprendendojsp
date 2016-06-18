@@ -15,8 +15,6 @@ public class ClientePessoaFisica {
 
 	private List<Telefone> telefones = new ArrayList<Telefone>();
 
-	private List<EmailCliente> emailClientes = new ArrayList<EmailCliente>();
-
 	public List<Telefone> getTelefones() {
 		return telefones;
 	}
@@ -27,10 +25,6 @@ public class ClientePessoaFisica {
 
 	public Long getId() {
 		return id;
-	}
-
-	public List<EmailCliente> getEmailClientes() {
-		return emailClientes;
 	}
 
 	public String getNome() {

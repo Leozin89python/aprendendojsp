@@ -10,7 +10,6 @@ import java.util.List;
 
 import br.com.aocp.connection.SingletonConnetion;
 import br.com.aocp.entidade.ClientePessoaFisica;
-import br.com.aocp.entidade.EmailCliente;
 import br.com.aocp.entidade.Telefone;
 import br.com.aocp.repository.RepositoryCliente;
 
@@ -51,7 +50,7 @@ public class ClienteDao implements RepositoryCliente {
 			constroiStatement(clientePessoaFisica, update);
 			update.execute();
 			connection.commit();
-		} catch (Exception e) { 
+		} catch (Exception e) {
 			try {
 				connection.rollback();
 			} catch (SQLException e1) {
@@ -132,9 +131,6 @@ public class ClienteDao implements RepositoryCliente {
 		obClientePessoaFisica.setNome(resultSet.getString("nome"));
 		obClientePessoaFisica.setNumeroLogradouro(resultSet
 				.getInt("numerologradouro"));
-		obClientePessoaFisica.getEmailClientes().clear();
-		obClientePessoaFisica.getEmailClientes().addAll(
-				getEmail(obClientePessoaFisica));
 		obClientePessoaFisica.getTelefones().clear();
 		obClientePessoaFisica.getTelefones().addAll(
 				getFones(obClientePessoaFisica));
@@ -162,26 +158,6 @@ public class ClienteDao implements RepositoryCliente {
 		return emailClientes;
 	}
 
-	private Collection<? extends EmailCliente> getEmail(ClientePessoaFisica id) {
-		List<EmailCliente> emailClientes = new ArrayList<EmailCliente>();
-		try {
-			String sql = "select * FROM email_cliente where clientepessoafisica = "
-					+ id.getId();
-			PreparedStatement find = connection.prepareStatement(sql);
-			ResultSet resultSet = find.executeQuery();
-			while (resultSet.next()) {
-				EmailCliente emailCliente = new EmailCliente();
-				emailCliente.setId(resultSet.getLong("id"));
-				emailCliente.setEmail(resultSet.getString("email"));
-				emailCliente.setClientePessoaFisica(id);
-				emailClientes.add(emailCliente);
-			}
-		} catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-		return emailClientes;
-	}
-
 	private void constroiStatement(ClientePessoaFisica clientePessoaFisica,
 			PreparedStatement insert) throws SQLException {
 		insert.setString(1, clientePessoaFisica.getNome());
@@ -200,26 +176,6 @@ public class ClienteDao implements RepositoryCliente {
 	@Override
 	public ClientePessoaFisica consulta(String cod) {
 		return this.consulta(Long.parseLong(cod));
-	}
-
-	@Override
-	public void salvarEmailCliente(EmailCliente emailCliente) {
-		String sql = "INSERT INTO email_cliente(email, clientepessoafisica) VALUES (?, ?);";
-		try {
-			PreparedStatement insert = connection.prepareStatement(sql);
-
-			insert.setString(1, emailCliente.getEmail());
-			insert.setLong(2, emailCliente.getClientePessoaFisica().getId());
-			insert.execute();
-			connection.commit();
-		} catch (SQLException e) {
-			try {
-				connection.rollback();
-			} catch (SQLException e1) {
-				e1.printStackTrace();
-			}
-			throw new RuntimeException(e);
-		}
 	}
 
 	@Override
