@@ -20,7 +20,6 @@ public class FilterConnection implements Filter {
 	private static Connection connection = new SingletonConnetion()
 			.getConnection();
 
-	@Override
 	public void destroy() {
 		try {
 			connection.close();
@@ -53,7 +52,6 @@ public class FilterConnection implements Filter {
 		}
 	}
 
-	@Override
 	public void init(FilterConfig arg0) throws ServletException {
 		connection = new SingletonConnetion().getConnection();
 	}
