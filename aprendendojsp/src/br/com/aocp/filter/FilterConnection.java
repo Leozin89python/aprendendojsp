@@ -27,12 +27,12 @@ public class FilterConnection implements Filter {
 	public void doFilter(ServletRequest request, ServletResponse response,
 			FilterChain chain) throws IOException, ServletException {
 		try {
-			request.setCharacterEncoding("UTF-8");
+			//request.setCharacterEncoding("UTF-8");
 			connection = SingletonConnetion.getConnection();
 			chain.doFilter(request, response);
 			connection.commit();
-			response.setCharacterEncoding("UTF-8");
-			response.setContentType("text/html; charset=UTF-8");
+			//response.setCharacterEncoding("UTF-8");
+			//response.setContentType("text/html; charset=UTF-8");
 
 		} catch (Exception e) {
 			e.printStackTrace();
