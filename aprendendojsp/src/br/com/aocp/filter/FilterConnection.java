@@ -17,7 +17,7 @@ import br.com.aocp.connection.SingletonConnetion;
 @WebFilter(filterName = "conexaoFilter", servletNames = { "ClientePessoaContoller" })
 public class FilterConnection implements Filter {
 
-	private static Connection connection = null;
+	private Connection connection = SingletonConnetion.getConnection();
 
 	@Override
 	public void destroy() {
@@ -27,12 +27,12 @@ public class FilterConnection implements Filter {
 	public void doFilter(ServletRequest request, ServletResponse response,
 			FilterChain chain) throws IOException, ServletException {
 		try {
-			//request.setCharacterEncoding("UTF-8");
+			// request.setCharacterEncoding("UTF-8");
 			connection = SingletonConnetion.getConnection();
 			chain.doFilter(request, response);
 			connection.commit();
-			//response.setCharacterEncoding("UTF-8");
-			//response.setContentType("text/html; charset=UTF-8");
+			// response.setCharacterEncoding("UTF-8");
+			// response.setContentType("text/html; charset=UTF-8");
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -47,9 +47,9 @@ public class FilterConnection implements Filter {
 		}
 	}
 
-	@SuppressWarnings("static-access")
 	@Override
 	public void init(FilterConfig arg0) throws ServletException {
-		connection = new SingletonConnetion().getConnection();
+
 	}
+
 }

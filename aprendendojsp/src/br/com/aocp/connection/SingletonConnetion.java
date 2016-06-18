@@ -10,11 +10,15 @@ public class SingletonConnetion {
 	private static String user = "admini9tgi8c";
 	private static Connection connection;
 
+	static {
+		conectar();
+	}
+
 	public SingletonConnetion() {
 		conectar();
 	}
 
-	private void conectar() {
+	private static void conectar() {
 		try {
 			Class.forName("org.postgresql.Driver");
 			connection = DriverManager.getConnection(banco, user, password);
