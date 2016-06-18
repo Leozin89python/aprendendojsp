@@ -47,7 +47,6 @@ public class FilterConnection implements Filter {
 		}
 	}
 
-	@Override
 	public void init(FilterConfig arg0) throws ServletException {
 
 	}
