@@ -6,8 +6,8 @@ import java.sql.DriverManager;
 public class SingletonConnetion {
 
 	private static String banco = "jdbc:postgresql://localhost:5432/aprendendojsp?autoReconnect=true";
-	private static String password = "upEjEFsZNzwH";
-	private static String user = "admini9tgi8c";
+	private static String password = "admin";
+	private static String user = "postgres";
 	private static Connection connection;
 
 	static {
