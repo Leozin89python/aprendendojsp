@@ -25,7 +25,6 @@ public class ClienteDao implements RepositoryCliente {
 		String sql = "INSERT INTO cliente_pessoa_fisica(nome, cpf, dataNacimento, endereco, numerologradouro)VALUES ( ?, ?, ?, ?, ?);";
 		try {
 			PreparedStatement insert = connection.prepareStatement(sql);
-
 			constroiStatement(clientePessoaFisica, insert);
 			insert.execute();
 			connection.commit();
@@ -67,10 +66,7 @@ public class ClienteDao implements RepositoryCliente {
 				+ clientePessoaFisica;
 		try {
 
-			remoeEmailClienteTodos(clientePessoaFisica);
-
 			remoeTelefoneClienteTodos(clientePessoaFisica);
-
 			PreparedStatement delete = connection.prepareStatement(sql);
 			delete.execute();
 			connection.commit();
@@ -88,8 +84,7 @@ public class ClienteDao implements RepositoryCliente {
 	public ClientePessoaFisica consulta(Long cod) {
 		ClientePessoaFisica retorno = new ClientePessoaFisica();
 		try {
-			String sql = "select * FROM cliente_pessoa_fisica where id = "
-					+ cod;
+			String sql = "select * FROM cliente_pessoa_fisica where id = " + cod;
 			PreparedStatement find = connection.prepareStatement(sql);
 			ResultSet resultSet = find.executeQuery();
 			while (resultSet.next()) {
@@ -125,23 +120,19 @@ public class ClienteDao implements RepositoryCliente {
 			ClientePessoaFisica obClientePessoaFisica) throws SQLException {
 		obClientePessoaFisica.setId(resultSet.getLong("id"));
 		obClientePessoaFisica.setCpf(resultSet.getString("cpf"));
-		obClientePessoaFisica.setDataNacimento(resultSet
-				.getDate("datanacimento"));
+		obClientePessoaFisica.setDataNacimento(resultSet.getDate("datanacimento"));
 		obClientePessoaFisica.setEndereco(resultSet.getString("endereco"));
 		obClientePessoaFisica.setNome(resultSet.getString("nome"));
-		obClientePessoaFisica.setNumeroLogradouro(resultSet
-				.getInt("numerologradouro"));
+		obClientePessoaFisica.setNumeroLogradouro(resultSet.getInt("numerologradouro"));
 		obClientePessoaFisica.getTelefones().clear();
-		obClientePessoaFisica.getTelefones().addAll(
-				getFones(obClientePessoaFisica));
+		obClientePessoaFisica.getTelefones().addAll(getFones(obClientePessoaFisica));
 	}
 
 	private Collection<? extends Telefone> getFones(
 			ClientePessoaFisica obClientePessoaFisica) {
-		List<Telefone> emailClientes = new ArrayList<Telefone>();
+		List<Telefone> fonesClientes = new ArrayList<Telefone>();
 		try {
-			String sql = "select * FROM telefone_cliente where clientepessoafisica = "
-					+ obClientePessoaFisica.getId();
+			String sql = "select * FROM telefone_cliente where clientepessoafisica = "+ obClientePessoaFisica.getId();
 			PreparedStatement find = connection.prepareStatement(sql);
 			ResultSet resultSet = find.executeQuery();
 			while (resultSet.next()) {
@@ -150,20 +141,19 @@ public class ClienteDao implements RepositoryCliente {
 				telefone.setId(resultSet.getLong("id"));
 				telefone.setNumero(resultSet.getString("numero"));
 				telefone.setTipoTelefone(resultSet.getString("tipotelefone"));
-				emailClientes.add(telefone);
+				fonesClientes.add(telefone);
 			}
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
-		return emailClientes;
+		return fonesClientes;
 	}
 
 	private void constroiStatement(ClientePessoaFisica clientePessoaFisica,
 			PreparedStatement insert) throws SQLException {
 		insert.setString(1, clientePessoaFisica.getNome());
 		insert.setString(2, clientePessoaFisica.getCpf());
-		insert.setDate(3, new java.sql.Date(clientePessoaFisica
-				.getDataNacimento().getTime()));
+		insert.setDate(3, new java.sql.Date(clientePessoaFisica.getDataNacimento().getTime()));
 		insert.setString(4, clientePessoaFisica.getEndereco());
 		insert.setInt(5, clientePessoaFisica.getNumeroLogradouro());
 	}
@@ -200,24 +190,6 @@ public class ClienteDao implements RepositoryCliente {
 	}
 
 	@Override
-	public void remoeEmailCliente(String pessoaFisicaEmail) {
-		String sql = "DELETE FROM email_cliente where id = "
-				+ pessoaFisicaEmail;
-		try {
-			PreparedStatement delete = connection.prepareStatement(sql);
-			delete.execute();
-			connection.commit();
-		} catch (SQLException e) {
-			try {
-				connection.rollback();
-			} catch (SQLException e1) {
-				e1.printStackTrace();
-			}
-			throw new RuntimeException(e);
-		}
-	}
-
-	@Override
 	public void remoeTelefoneCliente(String pessoaFisicaFone) {
 		String sql = "DELETE FROM telefone_cliente where id = "
 				+ pessoaFisicaFone;
@@ -235,26 +207,8 @@ public class ClienteDao implements RepositoryCliente {
 		}
 	}
 
-	public void remoeEmailClienteTodos(String pessoaFisicaEmail) {
-		String sql = "DELETE FROM email_cliente where clientepessoafisica = "
-				+ pessoaFisicaEmail;
-		try {
-			PreparedStatement delete = connection.prepareStatement(sql);
-			delete.execute();
-			connection.commit();
-		} catch (SQLException e) {
-			try {
-				connection.rollback();
-			} catch (SQLException e1) {
-				e1.printStackTrace();
-			}
-			throw new RuntimeException(e);
-		}
-	}
-
 	public void remoeTelefoneClienteTodos(String pessoaFisicaEmail) {
-		String sql = "DELETE FROM telefone_cliente where clientepessoafisica = "
-				+ pessoaFisicaEmail;
+		String sql = "DELETE FROM telefone_cliente where clientepessoafisica = "+ pessoaFisicaEmail;
 		try {
 			PreparedStatement delete = connection.prepareStatement(sql);
 			delete.execute();

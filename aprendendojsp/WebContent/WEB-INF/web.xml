@@ -34,18 +34,6 @@
 		<url-pattern>/ClientePessoaContoller</url-pattern>
 	</servlet-mapping>
 
-
-	<servlet>
-		<description></description>
-		<display-name>ClienteEmailContoller</display-name>
-		<servlet-name>ClienteEmailContoller</servlet-name>
-		<servlet-class>br.com.aocp.controller.ClienteEmailContoller</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>ClienteEmailContoller</servlet-name>
-		<url-pattern>/ClienteEmailContoller</url-pattern>
-	</servlet-mapping>
-
 	<servlet>
 		<description></description>
 		<display-name>ClienteTelefoneContoller</display-name>

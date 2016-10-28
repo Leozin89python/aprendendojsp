@@ -23,8 +23,7 @@ public class SingletonConnetion {
 			Class.forName("org.postgresql.Driver");
 			connection = DriverManager.getConnection(banco, user, password);
 			connection.setAutoCommit(false);
-			connection
-					.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
+			connection.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
 		} catch (Exception e) {
 			throw new RuntimeException("Erro ao conectar com a base de dados."
 					+ e);
