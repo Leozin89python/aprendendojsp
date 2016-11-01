@@ -12,11 +12,12 @@
 <body>
 	<div>
 		<div style="float: left; width: 32%;" id="teste1">
-
 			<form method="post" action="ClientePessoaContoller?action=save"
 				name="frmAdd" class="form-style-1" id="salvarCliente">
+				
 				<input type="hidden" id="idTemp" name="idTemp" readonly="readonly"
 					value="<c:out value="${cliente.id}" />">
+					
 				<table title="Cadastro">
 					<tr>
 						<td>Id:</td>

@@ -28,14 +28,14 @@ public class ClienteTelefoneContoller extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		String action = req.getParameter("action");
+		
 		if (action.equals("delet") && req.getParameter("idFone") != null) {
 			String clienteId = req.getParameter("idTemp");
 			ClientePessoaFisica pessoaFisica = new ClientePessoaFisica();
 			pessoaFisica.setId(Long.parseLong(clienteId));
 			repositoryCliente.remoeTelefoneCliente(req.getParameter("idFone"));
 			RequestDispatcher view = req.getRequestDispatcher("/index.jsp");
-			req.setAttribute("cliente",
-					repositoryCliente.consulta(pessoaFisica.getId()));
+			req.setAttribute("cliente",repositoryCliente.consulta(pessoaFisica.getId()));
 
 			view.forward(req, resp);
 		}
@@ -47,24 +47,22 @@ public class ClienteTelefoneContoller extends HttpServlet {
 		try {
 			if (req.getParameter("action") != null) {
 				if (req.getParameter("idTemp") != null) {
+					
 					String action = req.getParameter("action");
 					String clienteId = req.getParameter("idTemp");
-					if (action.equals("save")
-							&& req.getParameter("numero") != null) {
+					
+					if (action.equals("save") && req.getParameter("numero") != null) {
 
 						ClientePessoaFisica pessoaFisica = new ClientePessoaFisica();
 						pessoaFisica.setId(Long.parseLong(clienteId));
 
 						Telefone telefone = new Telefone();
 						telefone.setNumero(req.getParameter("numero"));
-						telefone.setTipoTelefone(req
-								.getParameter("comboTipoFone"));
+						telefone.setTipoTelefone(req.getParameter("comboTipoFone"));
 						telefone.setClientePessoaFisica(pessoaFisica);
 						repositoryCliente.salvarFoneCliente(telefone);
-						RequestDispatcher view = req
-								.getRequestDispatcher("/index.jsp");
-						req.setAttribute("cliente", repositoryCliente
-								.consulta(pessoaFisica.getId()));
+						RequestDispatcher view = req.getRequestDispatcher("/index.jsp");
+						req.setAttribute("cliente", repositoryCliente.consulta(pessoaFisica.getId()));
 						view.forward(req, resp);
 					}
 				}
