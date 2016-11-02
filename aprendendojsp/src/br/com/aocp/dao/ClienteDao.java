@@ -190,7 +190,7 @@ public class ClienteDao implements RepositoryCliente {
 	}
 
 	@Override
-	public void remoeTelefoneCliente(String pessoaFisicaFone) {
+	public void removeTelefoneCliente(String pessoaFisicaFone) {
 		String sql = "DELETE FROM telefone_cliente where id = "
 				+ pessoaFisicaFone;
 		try {

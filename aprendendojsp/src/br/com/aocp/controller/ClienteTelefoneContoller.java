@@ -33,7 +33,7 @@ public class ClienteTelefoneContoller extends HttpServlet {
 			String clienteId = req.getParameter("idTemp");
 			ClientePessoaFisica pessoaFisica = new ClientePessoaFisica();
 			pessoaFisica.setId(Long.parseLong(clienteId));
-			repositoryCliente.remoeTelefoneCliente(req.getParameter("idFone"));
+			repositoryCliente.removeTelefoneCliente(req.getParameter("idFone"));
 			RequestDispatcher view = req.getRequestDispatcher("/index.jsp");
 			req.setAttribute("cliente",repositoryCliente.consulta(pessoaFisica.getId()));
 

@@ -21,7 +21,7 @@ public interface RepositoryCliente {
 
 	List<ClientePessoaFisica> consultaTodos();
 
-	void remoeTelefoneCliente(String pessoaFisicaFone);
+	void removeTelefoneCliente(String pessoaFisicaFone);
 
 	void salvarFoneCliente(Telefone telefone);
 
