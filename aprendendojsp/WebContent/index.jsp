@@ -11,6 +11,7 @@
 </head>
 <body>
 	<div>
+	    <c:out value="${erro}"/>
 		<div style="float: left; width: 32%;" id="teste1">
 			<form method="post" action="ClientePessoaContoller?action=save"
 				name="frmAdd" class="form-style-1" id="salvarCliente">

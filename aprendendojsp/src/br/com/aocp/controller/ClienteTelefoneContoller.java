@@ -69,7 +69,9 @@ public class ClienteTelefoneContoller extends HttpServlet {
 
 			}
 		} catch (Exception e) {
-			throw new RuntimeException(e);
+			RequestDispatcher view = req.getRequestDispatcher("/index.jsp");
+			req.setAttribute("erro", e.getMessage());
+			view.forward(req, resp);
 		}
 	}
 }
