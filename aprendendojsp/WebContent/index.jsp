@@ -61,7 +61,14 @@
 						<td>
 						
 						  <input type="submit" value="Salvar" id="salvar" />
-						   <input type="submit" value="Listar" id="listar" onclick="javascript:document.getElementById('salvarCliente').action = 'ClientePessoaContoller?action=listar';"/>
+						  <input type="submit" value="Listar" id="listar" onclick="javascript:document.getElementById('salvarCliente').action = 'ClientePessoaContoller?action=listar';"/>
+						</td>
+					</tr>
+					
+					<tr>
+						<td />
+						<td>
+						  <input type="submit" value="Lista Páginada" id="listarPaginada" onclick="javascript:document.getElementById('salvarCliente').action = 'ClientePessoaPaginacaoController?numeroPagina=1';"/>
 						</td>
 					</tr>
 				</table>

@@ -48,6 +48,7 @@ public class ClientePessoaContoller extends HttpServlet {
 					req.setAttribute("cliente", clientePessoaFisica);
 					view.forward(req, resp);
 				}
+				
 			}
 		}
 	}
@@ -57,7 +58,7 @@ public class ClientePessoaContoller extends HttpServlet {
 			throws ServletException, IOException {
 		try {
 			String action = req.getParameter("action");
-
+			
 			if ((action != null && !action.equalsIgnoreCase("listar"))|| action == null) {
 
 				String idTemp = req.getParameter("idTemp");

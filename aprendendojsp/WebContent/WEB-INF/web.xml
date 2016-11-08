@@ -44,4 +44,16 @@
 		<servlet-name>ClienteTelefoneContoller</servlet-name>
 		<url-pattern>/ClienteTelefoneContoller</url-pattern>
 	</servlet-mapping>
+	
+	
+	<servlet>
+		<description></description>
+		<display-name>ClientePessoaPaginacaoController</display-name>
+		<servlet-name>ClientePessoaPaginacaoController</servlet-name>
+		<servlet-class>br.com.aocp.controller.ClientePessoaPaginacaoController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ClientePessoaPaginacaoController</servlet-name>
+		<url-pattern>/ClientePessoaPaginacaoController</url-pattern>
+	</servlet-mapping>
 </web-app>

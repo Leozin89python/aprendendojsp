@@ -25,4 +25,8 @@ public interface RepositoryCliente {
 
 	void salvarFoneCliente(Telefone telefone);
 
+	List<ClientePessoaFisica> consultaPaginada(String numeroPagina)  throws Exception;
+	
+	int quantidadePagina() throws Exception;
+
 }

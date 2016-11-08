@@ -10,6 +10,7 @@
 <title>Aprendendo JSP</title>
 </head>
 <body>
+ <c:out value="${erro}"/>
 	<form class="form-style-1">
 		<table>
 			<tr style="text-align: left; background-color: #4691A4;">

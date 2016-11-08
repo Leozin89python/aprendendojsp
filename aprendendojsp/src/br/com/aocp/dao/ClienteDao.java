@@ -223,4 +223,55 @@ public class ClienteDao implements RepositoryCliente {
 		}
 	}
 
+	@Override
+	public List<ClientePessoaFisica> consultaPaginada(String numeroPagina) throws Exception {
+		int total_pessoas_por_pagina = 6;
+		if (numeroPagina == null || (numeroPagina != null && numeroPagina.trim().isEmpty())){
+			numeroPagina = "0";
+		}
+		int offSet = (Integer.parseInt(numeroPagina) * total_pessoas_por_pagina) - total_pessoas_por_pagina; 
+		
+		if (offSet < 0){
+			offSet = 0;
+		}
+		
+		List<ClientePessoaFisica> retorno = new ArrayList<ClientePessoaFisica>();
+		String sql = "select * FROM cliente_pessoa_fisica limit " + total_pessoas_por_pagina + " OFFSET  " + offSet + "; ";
+
+			PreparedStatement find = connection.prepareStatement(sql);
+			ResultSet resultSet = find.executeQuery();
+			while (resultSet.next()) {
+				ClientePessoaFisica obClientePessoaFisica = new ClientePessoaFisica();
+				controiCliente(resultSet, obClientePessoaFisica);
+				retorno.add(obClientePessoaFisica);
+			}
+		return retorno;
+	}
+
+	@Override
+	public int quantidadePagina() throws Exception {
+		String sql = "select count(1) as totalPessoas FROM cliente_pessoa_fisica;";
+		int quantidadePagina = 1;
+		double total_pessoas_por_pagina = 6.0;
+			PreparedStatement find = connection.prepareStatement(sql);
+			ResultSet resultSet = find.executeQuery();
+			if (resultSet.next()) {
+				double totalPessoas = resultSet.getDouble("totalPessoas");
+				if (totalPessoas > total_pessoas_por_pagina){
+					
+					double quantidadePaginaTemp = Float.parseFloat(""+(totalPessoas / total_pessoas_por_pagina));
+
+					if (!(quantidadePaginaTemp % 2 == 0)){
+						quantidadePagina =   new Double(quantidadePaginaTemp).intValue() + 1;
+					}
+					else {
+						quantidadePagina = new Double(quantidadePaginaTemp).intValue();
+					}
+				}else {
+					quantidadePagina = 1;
+				}
+			}
+		return quantidadePagina;
+	}
+
 }
