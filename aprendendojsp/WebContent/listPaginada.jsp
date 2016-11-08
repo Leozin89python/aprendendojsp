@@ -48,15 +48,15 @@
 						href="ClientePessoaPaginacaoController?
 						clienteId=<c:out value="${c.id}"/>
 						&numeroPagina=<%=numeroPagina%>
-						&action=delete
-						&clienteId=<c:out value="${c.id}"/>">Remover</a></td>
+						&action=delete">Remover</a></td>
 				</tr>
 			</c:forEach>
 		</table>
+		<br>
+		<br>
 		<%
 			if (quantidadePagina > 0) {
-				int totalPaginas = quantidadePagina;
-				for (int i = 1; i <= totalPaginas; i++) {
+				for (int i = 1; i <= quantidadePagina; i++) {
 					if (i == numeroPagina) {
 						out.println("<b>" + i + "</b>");
 					} else {
@@ -69,7 +69,7 @@
 						+ 1 + "</a>");
 			}
 		%>
-		
+		<br>
 		<br>
 		<%
 			if (numeroPagina <= quantidadePagina && (numeroPagina - 1) > 0) {
@@ -86,8 +86,10 @@
 		%>
 		
 		<br>
+		<br>
 		<c:out value="Página Atual: ${numeroPagina}"/>
 		
+		<br>
 		<br>
 		<c:out value="Total de Páginas: ${quantidadePagina}"/>
 		

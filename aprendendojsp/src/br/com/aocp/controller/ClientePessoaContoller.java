@@ -28,7 +28,7 @@ public class ClientePessoaContoller extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-
+		try {
 		if (req.getParameter("action") != null) {
 			if (req.getParameter("clienteId") != null) {
 
@@ -50,6 +50,11 @@ public class ClientePessoaContoller extends HttpServlet {
 				}
 				
 			}
+		}
+		} catch (Exception e) {
+			RequestDispatcher view = req.getRequestDispatcher("/index.jsp");
+			req.setAttribute("erro", e.getMessage());
+			view.forward(req, resp);
 		}
 	}
 
