@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.tomcat.util.codec.binary.Base64;
+
 import br.com.aocp.dao.ClienteDao;
 import br.com.aocp.entidade.ClientePessoaFisica;
 import br.com.aocp.repository.RepositoryCliente;
@@ -64,6 +66,20 @@ public class ClientePessoaContoller extends HttpServlet {
 		try {
 			String action = req.getParameter("action");
 			
+			String imgBase64 = req.getParameter("base64");
+			
+			byte[] imageDataBytes = null;
+			if (imgBase64 != null && !imgBase64.isEmpty()) {
+				
+				String valorX = req.getParameter("x");
+				String valorY = req.getParameter("y");
+				String valorW = req.getParameter("w");
+				String valorH = req.getParameter("h");
+				
+				imageDataBytes =  Base64.decodeBase64(imgBase64);
+			
+			}
+			
 			if ((action != null && !action.equalsIgnoreCase("listar"))|| action == null) {
 
 				String idTemp = req.getParameter("idTemp");
@@ -75,6 +91,7 @@ public class ClientePessoaContoller extends HttpServlet {
 					clientePessoaFisica.setId(null);
 				}
 
+				clientePessoaFisica.setFoto(imageDataBytes);
 				clientePessoaFisica.setCpf(req.getParameter("cpf").toString());
 				clientePessoaFisica.setDataNacimento(simpleDateFormat.parse(req.getParameter("datanascimento")));
 				clientePessoaFisica.setEndereco(req.getParameter("endereco"));

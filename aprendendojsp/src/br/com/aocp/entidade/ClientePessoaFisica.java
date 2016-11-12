@@ -12,9 +12,17 @@ public class ClientePessoaFisica {
 	private java.util.Date dataNacimento;
 	private String endereco;
 	private Integer numeroLogradouro;
+	private byte[] foto;
 
 	private List<Telefone> telefones = new ArrayList<Telefone>();
 
+	public void setFoto(byte[] foto) {
+		this.foto = foto;
+	}
+	public byte[] getFoto() {
+		return foto;
+	}
+	
 	public List<Telefone> getTelefones() {
 		return telefones;
 	}

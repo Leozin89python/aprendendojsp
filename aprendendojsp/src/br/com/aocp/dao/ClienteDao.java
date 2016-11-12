@@ -1,5 +1,6 @@
 package br.com.aocp.dao;
 
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -7,6 +8,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+
+import org.postgresql.PGConnection;
+import org.postgresql.largeobject.LargeObject;
+import org.postgresql.largeobject.LargeObjectManager;
 
 import br.com.aocp.connection.SingletonConnetion;
 import br.com.aocp.entidade.ClientePessoaFisica;
@@ -22,13 +27,13 @@ public class ClienteDao implements RepositoryCliente {
 
 	@Override
 	public void salvar(ClientePessoaFisica clientePessoaFisica) {
-		String sql = "INSERT INTO cliente_pessoa_fisica(nome, cpf, dataNacimento, endereco, numerologradouro)VALUES ( ?, ?, ?, ?, ?);";
+		String sql = "INSERT INTO cliente_pessoa_fisica(nome, cpf, dataNacimento, endereco, numerologradouro, foto)VALUES ( ?, ?, ?, ?, ?, ?);";
 		try {
 			PreparedStatement insert = connection.prepareStatement(sql);
 			constroiStatement(clientePessoaFisica, insert);
 			insert.execute();
 			connection.commit();
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			try {
 				connection.rollback();
 			} catch (SQLException e1) {
@@ -41,7 +46,7 @@ public class ClienteDao implements RepositoryCliente {
 
 	@Override
 	public void atualiza(ClientePessoaFisica clientePessoaFisica) {
-		String sql = "UPDATE cliente_pessoa_fisica SET nome=?, cpf=?, dataNacimento=?, endereco=?, numeroLogradouro=? where id = "
+		String sql = "UPDATE cliente_pessoa_fisica SET nome=?, cpf=?, dataNacimento=?, endereco=?, numeroLogradouro=?, foto =? where id = "
 				+ clientePessoaFisica.getId();
 		try {
 			PreparedStatement update = connection.prepareStatement(sql);
@@ -90,7 +95,7 @@ public class ClienteDao implements RepositoryCliente {
 			while (resultSet.next()) {
 				controiCliente(resultSet, retorno);
 			}
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
 		return retorno;
@@ -110,20 +115,21 @@ public class ClienteDao implements RepositoryCliente {
 				controiCliente(resultSet, obClientePessoaFisica);
 				retorno.add(obClientePessoaFisica);
 			}
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
 		return retorno;
 	}
 
 	private void controiCliente(ResultSet resultSet,
-			ClientePessoaFisica obClientePessoaFisica) throws SQLException {
+			ClientePessoaFisica obClientePessoaFisica) throws Exception {
 		obClientePessoaFisica.setId(resultSet.getLong("id"));
 		obClientePessoaFisica.setCpf(resultSet.getString("cpf"));
 		obClientePessoaFisica.setDataNacimento(resultSet.getDate("datanacimento"));
 		obClientePessoaFisica.setEndereco(resultSet.getString("endereco"));
 		obClientePessoaFisica.setNome(resultSet.getString("nome"));
 		obClientePessoaFisica.setNumeroLogradouro(resultSet.getInt("numerologradouro"));
+		obClientePessoaFisica.setFoto(carregaLargeObject(resultSet.getLong("foto")));
 		obClientePessoaFisica.getTelefones().clear();
 		obClientePessoaFisica.getTelefones().addAll(getFones(obClientePessoaFisica));
 	}
@@ -150,12 +156,13 @@ public class ClienteDao implements RepositoryCliente {
 	}
 
 	private void constroiStatement(ClientePessoaFisica clientePessoaFisica,
-			PreparedStatement insert) throws SQLException {
+			PreparedStatement insert) throws Exception {
 		insert.setString(1, clientePessoaFisica.getNome());
 		insert.setString(2, clientePessoaFisica.getCpf());
 		insert.setDate(3, new java.sql.Date(clientePessoaFisica.getDataNacimento().getTime()));
 		insert.setString(4, clientePessoaFisica.getEndereco());
 		insert.setInt(5, clientePessoaFisica.getNumeroLogradouro());
+		insert.setLong(6, gravaLargeObject(clientePessoaFisica.getFoto()));
 	}
 
 	@Override
@@ -273,5 +280,55 @@ public class ClienteDao implements RepositoryCliente {
 			}
 		return quantidadePagina;
 	}
+	
+	public static byte[] carregaLargeObject(Long oid) throws Exception {
+		if (oid > 0) {
+			LargeObjectManager lobj = ((PGConnection) SingletonConnetion
+					.getConnection()).getLargeObjectAPI();
+			LargeObject objeto = lobj.open(oid);
+			InputStream inputStream = objeto.getInputStream();
+
+			ArrayList<Byte> retornoAux = new ArrayList<Byte>();
+			int aux = -1;
+			while ((aux = inputStream.read()) > -1)
+				retornoAux.add((byte) aux);
+
+			byte[] retorno = new byte[retornoAux.size()];
+			for (int i = 0; i < retornoAux.size(); i++)
+				retorno[i] = retornoAux.get(i);
+
+			objeto.close();
+			inputStream.close();
+
+			return retorno;
+		}
+		return null;
+	}
+	
+	public Long gravaLargeObject(byte[] dados)
+			throws Exception {
+		if (dados == null)
+			throw new Exception("Erro ao salvar LargeObject - dados NULL.");
+
+		// instancia o LargeObjectManager
+		LargeObjectManager lobj = ((PGConnection) SingletonConnetion.getConnection()).getLargeObjectAPI();
+
+		// instancia o LargeObject
+		long oid = lobj.createLO(LargeObjectManager.READ
+				| LargeObjectManager.WRITE);
+
+		// abre o LargeObject
+		LargeObject obj = lobj.open(oid, LargeObjectManager.WRITE);
+
+		// escreve os dados
+		obj.write(dados);
+
+		// fecha o LargeObject
+		obj.close();
+
+		// retorna a OID do LargeObject
+		return oid;
+	}
+
 
 }

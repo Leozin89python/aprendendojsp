@@ -63,4 +63,5 @@ ALTER TABLE telefone_cliente
   OWNER TO postgres;
 
 
+ALTER TABLE cliente_pessoa_fisica ADD COLUMN foto oid;
 
