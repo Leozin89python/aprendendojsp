@@ -3,7 +3,6 @@ package br.com.aocp.controller;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 
@@ -88,11 +87,11 @@ public class ClientePessoaContoller extends HttpServlet {
 
 							BufferedImage bufferedImage = ImageIO.read(new ByteArrayInputStream(imageBytes));
 
-							BufferedImage subImgage = bufferedImage.
-									getSubimage(Integer.parseInt(valorX), 
-											Integer.parseInt(valorY), 
-											Integer.parseInt(valorW), 
-											Integer.parseInt(valorH));
+							BufferedImage subImgage = bufferedImage. 
+									getSubimage(Integer.parseInt(valorX) ,  
+											Integer.parseInt(valorY) , 
+											Integer.parseInt(valorW) , 
+											Integer.parseInt(valorH) );
 							 
 							 ByteArrayOutputStream baos = new ByteArrayOutputStream();
 						     ImageIO.write(subImgage, "png", baos);
