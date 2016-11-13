@@ -94,15 +94,10 @@
 				<input type="hidden" id="idTemp" name="idTemp" readonly="readonly"
 					value="<c:out value="${cliente.id}" />">
 				
-				<input type="file" id="fileUpload" value="Fotografia" name="fileUpload" onchange="visualizarImg();">
-				
-				<img src="<c:out value="${cliente.foto}"/>" id="target" style="width: 300px; height: 300px;" />
-				
+				<table>
+				<tr>
+				  <td>
 				<table title="Cadastro"> 
-					<tr>
-						<td><input type="button" value="Recortar" onclick="iniciarRecorte()"></td>
-						<td><input type="button" value="Delete Foto" onclick="deletaFoto();"></td>
-					</tr>
 					<tr>
 						<td>Id:</td>
 						<td><input type="text" id="id" name="id" readonly="readonly"
@@ -143,19 +138,28 @@
 						<td />
 						<td>
 						
-						  <input type="submit" value="Salvar" id="salvar" />
-						  <input type="submit" value="Listar" id="listar" onclick="javascript:document.getElementById('salvarCliente').action = 'ClientePessoaContoller?action=listar';"/>
+						  <input type="submit" value="Salvar" id="salvar" style="width:83px;"/>
+						  <input type="submit" value="Listar" id="listar" style="width:83px;" onclick="javascript:document.getElementById('salvarCliente').action = 'ClientePessoaContoller?action=listar';"/>
 						</td>
 					</tr>
 					
 					<tr>
-						<td />
+						<td/> 
 						<td>
-						  <input type="submit" value="Lista Páginada" id="listarPaginada" onclick="javascript:document.getElementById('salvarCliente').action = 'ClientePessoaPaginacaoController?numeroPagina=1';"/>
+						  <input type="submit" style="width:170px;" value="Lista Páginada" id="listarPaginada" onclick="javascript:document.getElementById('salvarCliente').action = 'ClientePessoaPaginacaoController?numeroPagina=1';"/>
 						</td>
 					</tr>
 				</table>
-
+				</td>
+				
+				 <td>
+				 	<input type="file" id="fileUpload" value="Fotografia" name="fileUpload" onchange="visualizarImg();">
+					<img src="<c:out value="${cliente.foto}"/>" id="target" style="width: 300px; height: 300px;" />
+					<input type="button" value="Recortar" onclick="iniciarRecorte()">
+					<input type="button" value="Delete Foto" onclick="deletaFoto();">
+				 </td>
+				</tr>
+			   </table>
 			</form>
 
 		</div>
