@@ -82,11 +82,8 @@ public class ClientePessoaContoller extends HttpServlet {
 					if (!valorX.isEmpty() && !valorY.isEmpty() && !valorW.isEmpty() && !valorH.isEmpty()){
 						  
 						  String base64Image = imgBase64.split(",")[1];
-
 							byte[] imageBytes = new Base64().decodeBase64(base64Image);
-
 							BufferedImage bufferedImage = ImageIO.read(new ByteArrayInputStream(imageBytes));
-
 							BufferedImage subImgage = bufferedImage. 
 									getSubimage(Integer.parseInt(valorX) ,  
 											Integer.parseInt(valorY) , 
