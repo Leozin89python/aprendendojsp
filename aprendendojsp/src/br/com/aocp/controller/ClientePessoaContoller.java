@@ -1,8 +1,13 @@
 package br.com.aocp.controller;
 
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 
+import javax.imageio.ImageIO;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -33,7 +38,7 @@ public class ClientePessoaContoller extends HttpServlet {
 		try {
 		if (req.getParameter("action") != null) {
 			if (req.getParameter("clienteId") != null) {
-
+				
 				String action = req.getParameter("action");
 				String clienteId = req.getParameter("clienteId");
 
@@ -44,8 +49,30 @@ public class ClientePessoaContoller extends HttpServlet {
 					view.forward(req, resp);
 				}
 				if (action.equals("edit")) {// se for pra editar
+					
+					/*Obtem o caminho relatorio da pasta img*/
+					String path = req.getServletContext().getRealPath("img")+ File.separator;
+					
 					ClientePessoaFisica clientePessoaFisica = repositoryCliente.consulta(clienteId);
 
+					if (clientePessoaFisica.getFoto() != null && !clientePessoaFisica.getFoto().isEmpty()) {
+				        clientePessoaFisica.setImgHtml(clienteId+".png");
+				        
+				        String base64Image = clientePessoaFisica.getFoto().split(",")[1];
+				        clientePessoaFisica.setFotoBase64(base64Image);
+
+						byte[] imageBytes = new Base64().decodeBase64(base64Image);
+
+						BufferedImage bufferedImage = ImageIO.read(new ByteArrayInputStream(imageBytes));
+
+						File imageFile = new File(path + clientePessoaFisica.getImgHtml());
+
+						ImageIO.write(bufferedImage, "png", imageFile);
+						
+						imageFile.deleteOnExit();
+					    
+					}
+					
 					RequestDispatcher view = req.getRequestDispatcher("/index.jsp");
 					req.setAttribute("cliente", clientePessoaFisica);
 					view.forward(req, resp);
@@ -68,7 +95,6 @@ public class ClientePessoaContoller extends HttpServlet {
 			
 			String imgBase64 = req.getParameter("base64");
 			
-			byte[] imageDataBytes = null;
 			if (imgBase64 != null && !imgBase64.isEmpty()) {
 				
 				String valorX = req.getParameter("x");
@@ -76,8 +102,6 @@ public class ClientePessoaContoller extends HttpServlet {
 				String valorW = req.getParameter("w");
 				String valorH = req.getParameter("h");
 				
-				imageDataBytes =  Base64.decodeBase64(imgBase64);
-			
 			}
 			
 			if ((action != null && !action.equalsIgnoreCase("listar"))|| action == null) {
@@ -91,7 +115,7 @@ public class ClientePessoaContoller extends HttpServlet {
 					clientePessoaFisica.setId(null);
 				}
 
-				clientePessoaFisica.setFoto(imageDataBytes);
+				clientePessoaFisica.setFoto(imgBase64);
 				clientePessoaFisica.setCpf(req.getParameter("cpf").toString());
 				clientePessoaFisica.setDataNacimento(simpleDateFormat.parse(req.getParameter("datanascimento")));
 				clientePessoaFisica.setEndereco(req.getParameter("endereco"));

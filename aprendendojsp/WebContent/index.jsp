@@ -20,6 +20,16 @@
 
 <script language="Javascript">
 
+	function iniciarRecorte(){
+	    setTimeout(
+		   		function() {
+				 $('#target').Jcrop({
+						onSelect : setCoordinates
+					});
+				},
+		    2000);
+	}
+
 	function setCoordinates(c) {
 		document.getElementById("x").value = c.x;
 		document.getElementById("y").value = c.y;
@@ -47,14 +57,6 @@
 
 		  if (file) {
 		    reader.readAsDataURL(file);		    
-		    setTimeout(
-		   		function() {
-				 $('#target').Jcrop({
-						onSelect : setCoordinates
-					});
-				},
-		    2000);
-		    
 		  } else {
 		    preview.src = "";
 		  }
@@ -87,18 +89,18 @@
 				<input type="hidden" name="y" id="y"/>
 		        <input type="hidden" name="w" id="w"/>
 		        <input type="hidden" name="h" id="h"/>
-		        <input type="hidden" name="base64" id="base64"/>
+		        <input type="hidden" name="base64" id="base64" value="${cliente.foto}"/>
 				
 				<input type="hidden" id="idTemp" name="idTemp" readonly="readonly"
 					value="<c:out value="${cliente.id}" />">
 				
 				<input type="file" id="fileUpload" value="Fotografia" name="fileUpload" onchange="visualizarImg();">
 				
-				<img src="" id="target" style="width: 300px; height: 300px;" />
+				<img src="<c:out value="${cliente.foto}"/>" id="target" style="width: 300px; height: 300px;" />
 				
-				<table title="Cadastro">
+				<table title="Cadastro"> 
 					<tr>
-						<td></td>
+						<td><input type="button" value="Recortar" onclick="iniciarRecorte()"></td>
 						<td><input type="button" value="Delete Foto" onclick="deletaFoto();"></td>
 					</tr>
 					<tr>

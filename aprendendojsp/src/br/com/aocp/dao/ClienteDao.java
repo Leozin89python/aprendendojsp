@@ -129,7 +129,11 @@ public class ClienteDao implements RepositoryCliente {
 		obClientePessoaFisica.setEndereco(resultSet.getString("endereco"));
 		obClientePessoaFisica.setNome(resultSet.getString("nome"));
 		obClientePessoaFisica.setNumeroLogradouro(resultSet.getInt("numerologradouro"));
-		obClientePessoaFisica.setFoto(carregaLargeObject(resultSet.getLong("foto")));
+		
+		obClientePessoaFisica.setFoto(resultSet.getString("foto"));
+		
+		obClientePessoaFisica.setFotoBase64((resultSet.getString("foto")));
+		
 		obClientePessoaFisica.getTelefones().clear();
 		obClientePessoaFisica.getTelefones().addAll(getFones(obClientePessoaFisica));
 	}
@@ -162,7 +166,7 @@ public class ClienteDao implements RepositoryCliente {
 		insert.setDate(3, new java.sql.Date(clientePessoaFisica.getDataNacimento().getTime()));
 		insert.setString(4, clientePessoaFisica.getEndereco());
 		insert.setInt(5, clientePessoaFisica.getNumeroLogradouro());
-		insert.setLong(6, gravaLargeObject(clientePessoaFisica.getFoto()));
+		insert.setString(6, clientePessoaFisica.getFoto());
 	}
 
 	@Override
@@ -308,7 +312,7 @@ public class ClienteDao implements RepositoryCliente {
 	public Long gravaLargeObject(byte[] dados)
 			throws Exception {
 		if (dados == null)
-			throw new Exception("Erro ao salvar LargeObject - dados NULL.");
+			return 0L;
 
 		// instancia o LargeObjectManager
 		LargeObjectManager lobj = ((PGConnection) SingletonConnetion.getConnection()).getLargeObjectAPI();
