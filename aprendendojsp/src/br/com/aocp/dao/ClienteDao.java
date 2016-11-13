@@ -132,8 +132,6 @@ public class ClienteDao implements RepositoryCliente {
 		
 		obClientePessoaFisica.setFoto(resultSet.getString("foto"));
 		
-		obClientePessoaFisica.setFotoBase64((resultSet.getString("foto")));
-		
 		obClientePessoaFisica.getTelefones().clear();
 		obClientePessoaFisica.getTelefones().addAll(getFones(obClientePessoaFisica));
 	}

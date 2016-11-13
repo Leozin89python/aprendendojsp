@@ -13,28 +13,8 @@ public class ClientePessoaFisica {
 	private String endereco;
 	private Integer numeroLogradouro;
 	private String foto;
-	private String fotoBase64;
-	private String imgHtml;
-
 	private List<Telefone> telefones = new ArrayList<Telefone>();
 	
-	
-	public void setImgHtml(String imgHtml) {
-		this.imgHtml = imgHtml;
-	}
-	
-	public String getImgHtml() {
-		return imgHtml;
-	}
-	
-	public void setFotoBase64(String fotoBase64) {
-		this.fotoBase64 = fotoBase64;
-	}
-	
-	public String getFotoBase64() {
-		return fotoBase64;
-	}
-
 	public void setFoto(String foto) {
 		this.foto = foto;
 	}
