@@ -41,8 +41,9 @@
 			</c:forEach>
 		</table>
 	</form>
-	<form class="form-style-1" action="index.jsp">
+	<form class="form-style-1" action="index.jsp" id="formBotoesPaginacao">
 		<input type="submit" value="Voltar">
+		<input type="submit" style="width:170px;" value="Paginar Lista" id="listarPaginada" onclick ="javascript:document.getElementById('formBotoesPaginacao').action = 'ClientePessoaPaginacaoController?numeroPagina=1';"/>
 	</form>
 </body>
 </html>

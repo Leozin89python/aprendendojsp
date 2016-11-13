@@ -53,7 +53,7 @@ public class ClientePessoaPaginacaoController extends HttpServlet {
 				
 				RequestDispatcher view = req.
 						getRequestDispatcher("/listPaginada.jsp?quantidadePagina="+quantidadePagina
-								+ "&numeroPagina="+numeroPagina);
+								+ "&numeroPagina="+(numeroPagina != null ? numeroPagina : 1));
 				view.forward(req, resp);
 		} catch (Exception e) {
 			RequestDispatcher view = req.getRequestDispatcher("/listPaginada.jsp");
