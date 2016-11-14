@@ -12,7 +12,6 @@
 <body>
  <c:out value="${erro}"/>
 	<form class="form-style-1">
-	<img alt="Java Avançado" src="img/logo-redondo.png" style="width: 20px;height: 20px;" border="0" align="top">Java Avançado</img>
 		<table>
 			<tr style="text-align: left; background-color: #4691A4;">
 				<th style="width: 250px;">Id</th>
