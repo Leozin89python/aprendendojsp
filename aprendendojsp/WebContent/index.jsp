@@ -18,12 +18,6 @@
 <link href="resources/css/css.css" rel="stylesheet" />
 <title>Aprendendo JSP</title>
 
-<script type="text/javascript">
-$(document).ready(function(){
-	  $('#datanascimento').mask('##/##/####');
-});
-</script>
-
 </head>
 <body>
 	<div>
@@ -102,7 +96,7 @@ $(document).ready(function(){
 				
 				 <td>
 				 	<input type="file" id="fileUpload" value="Fotografia" name="fileUpload" onchange="visualizarImg();">
-					<img src="<c:out value="${cliente.foto}"/>" id="target" style="width: 300px; height: 300px;" />
+					<img src="<c:out value="${cliente.foto}"/>" id="target"  />
 					<input type="button" value="Recortar" onclick="iniciarRecorte()">
 					<input type="button" value="Delete Foto" onclick="deletaFoto();">
 				 </td>

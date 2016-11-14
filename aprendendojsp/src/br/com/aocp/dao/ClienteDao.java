@@ -105,7 +105,7 @@ public class ClienteDao implements RepositoryCliente {
 	public List<ClientePessoaFisica> consultaTodos() {
 
 		List<ClientePessoaFisica> retorno = new ArrayList<ClientePessoaFisica>();
-		String sql = "select * FROM cliente_pessoa_fisica ";
+		String sql = "select * FROM cliente_pessoa_fisica order by id;";
 
 		try {
 			PreparedStatement find = connection.prepareStatement(sql);
@@ -245,7 +245,7 @@ public class ClienteDao implements RepositoryCliente {
 		}
 		
 		List<ClientePessoaFisica> retorno = new ArrayList<ClientePessoaFisica>();
-		String sql = "select * FROM cliente_pessoa_fisica limit " + total_pessoas_por_pagina + " OFFSET  " + offSet + "; ";
+		String sql = "select * FROM cliente_pessoa_fisica  order by id limit " + total_pessoas_por_pagina + " OFFSET  " + offSet + "; ";
 
 			PreparedStatement find = connection.prepareStatement(sql);
 			ResultSet resultSet = find.executeQuery();
