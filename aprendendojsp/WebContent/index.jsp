@@ -18,6 +18,12 @@
 <link href="resources/css/css.css" rel="stylesheet" />
 <title>Aprendendo JSP</title>
 
+<script type="text/javascript">
+$(document).ready(function(){
+	  $('#datanascimento').mask('##/##/####');
+});
+</script>
+
 </head>
 <body>
 	<div>
@@ -27,7 +33,7 @@
 				name="frmAdd" onsubmit="return checkCoordinates();"
 				class="form-style-1" id="salvarCliente"
 				enctype="application/x-www-form-urlencoded"> 
-				
+				<img alt="Java Avançado" src="img/logo-redondo.png" style="width: 20px;height: 20px;" border="0" align="top">Java Avançado</img>
 				<input type="hidden" name="x" id="x"/>
 				<input type="hidden" name="y" id="y"/>
 		        <input type="hidden" name="w" id="w"/>

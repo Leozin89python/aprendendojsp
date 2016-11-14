@@ -17,6 +17,8 @@
     int numeroPagina = Integer.parseInt(request.getParameter("numeroPagina"));
     
     %>
+    <img alt="Java Avançado" src="img/logo-redondo.png" style="width: 20px;height: 20px;" border="0" align="top">Java Avançado</img>
+    <br/>
     <c:out value="Aprendendo lista paginada JSP"/>
     <c:out value="${erro}"/>
     
