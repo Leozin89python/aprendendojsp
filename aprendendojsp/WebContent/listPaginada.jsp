@@ -13,8 +13,16 @@
 
     <%
     
-    int quantidadePagina = Integer.parseInt(request.getParameter("quantidadePagina"));
-    int numeroPagina = Integer.parseInt(request.getParameter("numeroPagina"));
+    int quantidadePagina = 0;
+    int numeroPagina = 0;
+    
+    if (request.getParameter("quantidadePagina") != null) {
+    quantidadePagina = Integer.parseInt(request.getParameter("quantidadePagina"));
+    }
+    
+    if (request.getParameter("numeroPagina") != null) {
+    	numeroPagina = Integer.parseInt(request.getParameter("numeroPagina"));
+     }
     
     %>
     <c:out value="Aprendendo lista paginada JSP"/>
