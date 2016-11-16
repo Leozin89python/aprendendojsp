@@ -81,17 +81,27 @@ public class ClientePessoaContoller extends HttpServlet {
 				if (valorX != null && valorY != null && valorW != null && valorH != null){
 					if (!valorX.isEmpty() && !valorY.isEmpty() && !valorW.isEmpty() && !valorH.isEmpty()){
 						  
-						  String base64Image = imgBase64.split(",")[1];
+						    //Imagem original em Base64
+						    String base64Image = imgBase64.split(",")[1];
+						    
+						    //Convertendo para  byte[] usando lib apache
 							byte[] imageBytes = new Base64().decodeBase64(base64Image);
+							
+							// Transformando em BufferedImage 
 							BufferedImage bufferedImage = ImageIO.read(new ByteArrayInputStream(imageBytes));
+							
+							// Cortando as imagens passando as cordenadas
 							BufferedImage subImgage = bufferedImage. 
 									getSubimage(Integer.parseInt(valorX) ,  
 											Integer.parseInt(valorY) , 
 											Integer.parseInt(valorW) , 
 											Integer.parseInt(valorH) );
 							 
+							 // escrevendo novamente a imagem cortada.
 							 ByteArrayOutputStream baos = new ByteArrayOutputStream();
 						     ImageIO.write(subImgage, "png", baos);
+						     
+						     // convertendo para base64 novamente
 						     imgBase64 = "data:image/png;base64," + DatatypeConverter.printBase64Binary(baos.toByteArray());
 						
 					}

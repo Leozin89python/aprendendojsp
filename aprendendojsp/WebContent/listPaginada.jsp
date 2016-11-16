@@ -27,7 +27,6 @@
     %>
     <c:out value="Aprendendo lista paginada JSP"/>
     <c:out value="${erro}"/>
-    
 	<form class="form-style-1">
 		<table>
 			<tr style="text-align: left; background-color: #4691A4;">
