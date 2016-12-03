@@ -1,3 +1,4 @@
+<%@page import="br.com.aocp.entidade.ClientePessoaFisica"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -68,6 +69,53 @@
 						<td>Endereco:</td>
 						<td><input type="text" id="endereco" name="endereco"
 							value="<c:out value="${cliente.endereco}" />"></td>
+					</tr>
+					
+					<tr>
+						<td>Ativo:</td>
+						<td><input type="checkbox" id="ativo" name="ativo" 
+						<%
+						if (request.getAttribute("cliente") != null) {
+						 ClientePessoaFisica pessoaFisica = (ClientePessoaFisica) request.getAttribute("cliente");
+						 if (pessoaFisica.getAtivo() != null && pessoaFisica.getAtivo().equals("checked")){
+							 out.print("checked=\"checked\"");
+							 out.print("value=\"checked\"");
+							 out.print(" ");
+						 }
+						}
+						%> 
+						onchange="this.checked ? this.value = 'checked': 'unchecked'"></td>
+					</tr>
+					
+					
+					<tr>
+						<td>Sexo:</td>
+						<td>
+							 <input type="radio" name="sexo"
+							  <%
+							  if (request.getAttribute("cliente") != null) {
+									 ClientePessoaFisica pessoaFisica = (ClientePessoaFisica) request.getAttribute("cliente");
+							  	if (pessoaFisica.getSexo() != null && pessoaFisica.getSexo().equals("masculino")){
+							  		out.print("checked=\"checked\"");
+							  		out.print(" ");
+							  	}
+							  }	 
+							  %>
+							  value="masculino" >Masculino</input>
+							  
+							  
+							 <input type="radio" name="sexo" 
+							    <%
+								  if (request.getAttribute("cliente") != null) {
+										 ClientePessoaFisica pessoaFisica = (ClientePessoaFisica) request.getAttribute("cliente");
+								  	if (pessoaFisica.getSexo() != null && pessoaFisica.getSexo().equals("feminino")){
+								  		out.print("checked=\"checked\"");
+								  		out.print(" ");
+								  	}
+								  }	 
+							   %>
+							 value="feminino">Feminino</input>
+						</td>
 					</tr>
 
 					<tr>

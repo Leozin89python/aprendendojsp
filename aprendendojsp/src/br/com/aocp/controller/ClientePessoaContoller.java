@@ -126,7 +126,10 @@ public class ClientePessoaContoller extends HttpServlet {
 				clientePessoaFisica.setEndereco(req.getParameter("endereco"));
 				clientePessoaFisica.setNome(req.getParameter("nome"));
 				clientePessoaFisica.setNumeroLogradouro(Integer.parseInt(req.getParameter("numeroLogradouro")));
-
+				
+				clientePessoaFisica.setAtivo((req.getParameter("ativo")));
+				clientePessoaFisica.setSexo(req.getParameter("sexo"));
+				
 				if (action.equals("delete")) {
 					repositoryCliente.deleta(clientePessoaFisica.getId());
 				} else if (action.equals("save") && (idTemp == null || idTemp.isEmpty())) {

@@ -14,6 +14,29 @@ public class ClientePessoaFisica {
 	private Integer numeroLogradouro;
 	private String foto;
 	private List<Telefone> telefones = new ArrayList<Telefone>();
+	private String ativo = "";
+	private String sexo;
+	
+	public void setSexo(String sexo) {
+		this.sexo = sexo;
+	}
+	
+	public String getSexo() {
+		return sexo;
+	}
+	
+	public void setAtivo(String ativo) {
+		this.ativo = ativo;
+	}
+	
+	public String getAtivo() {
+		if (ativo == null || ativo.trim() == "" || ativo.equals("false") || ativo.equals("unchecked")){
+			return "unchecked";
+		}else if (ativo != null && ativo.equals("true") || ativo.equals("checked")){
+			return "checked";
+		}
+		return ativo;
+	}
 	
 	public void setFoto(String foto) {
 		this.foto = foto;

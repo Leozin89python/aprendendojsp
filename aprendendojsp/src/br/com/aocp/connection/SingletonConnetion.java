@@ -20,7 +20,6 @@ public class SingletonConnetion {
 
 	private static void conectar() {
 		try {
-			/* 
 			  //******************POSTGRESQL*****************
 			if (connection == null) {
 				Class.forName("org.postgresql.Driver");
@@ -29,16 +28,15 @@ public class SingletonConnetion {
 				connection.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
 			}
 			//***********************************************
-			 */
 			
 			
 			//******************MYSQL*****************
-			if (connection == null) {
+			/*if (connection == null) {
 				Class.forName("com.mysql.jdbc.Driver");
 				connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/aprendendojsp", "admin", "admin");
 				connection.setAutoCommit(false);
 				connection.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
-			}
+			}*/
 			//***********************************************
 		} catch (Exception e) {
 			throw new RuntimeException("Erro ao conectar com a base de dados."
