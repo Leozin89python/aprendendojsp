@@ -68,3 +68,5 @@ ALTER TABLE cliente_pessoa_fisica ADD COLUMN foto text;
 ALTER TABLE cliente_pessoa_fisica ADD COLUMN sexo character varying(10);
 ALTER TABLE cliente_pessoa_fisica ADD COLUMN ativo boolean;
 
+ALTER TABLE cliente_pessoa_fisica ADD COLUMN experiencia character varying(200);
+

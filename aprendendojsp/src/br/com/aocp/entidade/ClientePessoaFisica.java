@@ -16,6 +16,28 @@ public class ClientePessoaFisica {
 	private List<Telefone> telefones = new ArrayList<Telefone>();
 	private String ativo = "";
 	private String sexo;
+	private String experiencia;
+	
+	
+	public boolean contaisExperiencia(String ex){
+		if (experiencia !=null && !experiencia.isEmpty()){
+			String[] exArray = experiencia.split(",");
+			for (String e : exArray) {
+				if (e.trim().equalsIgnoreCase(ex.trim())){
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+	
+	public void setExperiencia(String experiencia) {
+		this.experiencia = experiencia;
+	}
+	
+	public String getExperiencia() {
+		return experiencia;
+	}
 	
 	public void setSexo(String sexo) {
 		this.sexo = sexo;

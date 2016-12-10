@@ -5,6 +5,8 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 import javax.imageio.ImageIO;
 import javax.servlet.RequestDispatcher;
@@ -129,6 +131,14 @@ public class ClientePessoaContoller extends HttpServlet {
 				
 				clientePessoaFisica.setAtivo((req.getParameter("ativo")));
 				clientePessoaFisica.setSexo(req.getParameter("sexo"));
+				
+				// check multiplos INICIO
+					String[] experiencia = req.getParameterValues("experiencia");
+					if (experiencia != null) {
+						String exp = Arrays.toString(experiencia).replaceAll("\\[", "").replaceAll("\\]", "");
+						clientePessoaFisica.setExperiencia(exp);
+					}
+				// check multiplos FIM
 				
 				if (action.equals("delete")) {
 					repositoryCliente.deleta(clientePessoaFisica.getId());

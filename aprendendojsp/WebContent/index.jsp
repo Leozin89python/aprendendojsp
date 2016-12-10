@@ -117,6 +117,50 @@
 							 value="feminino">Feminino</input>
 						</td>
 					</tr>
+					
+					
+					<tr>
+						<td>Experiência:</td>
+						<td>
+							 <input type="checkbox" name="experiencia"
+							  <%
+							  if (request.getAttribute("cliente") != null) {
+									 ClientePessoaFisica pessoaFisica = (ClientePessoaFisica) request.getAttribute("cliente");
+							  	if (pessoaFisica.contaisExperiencia("java")){
+							  		out.print("checked=\"checked\"");
+							  		out.print(" ");
+							  	}
+							  }	 
+							  %>
+							  value="java" >Java</input>
+							  
+							  
+							<input type="checkbox" name="experiencia"
+							    <%
+								  if (request.getAttribute("cliente") != null) {
+										 ClientePessoaFisica pessoaFisica = (ClientePessoaFisica) request.getAttribute("cliente");
+										if (pessoaFisica.contaisExperiencia("php")){
+									  		out.print("checked=\"checked\"");
+									  		out.print(" ");
+								  		}
+								  }	 
+							   %>
+							 value="php">Php</input>
+							 
+							
+							<input type="checkbox" name="experiencia"
+							    <%
+								  if (request.getAttribute("cliente") != null) {
+										 ClientePessoaFisica pessoaFisica = (ClientePessoaFisica) request.getAttribute("cliente");
+										if (pessoaFisica.contaisExperiencia("c++")){
+									  		out.print("checked=\"checked\"");
+									  		out.print(" ");
+									  	}
+								  }	 
+							   %>
+							 value="c++">C++</input>
+						</td>
+					</tr>
 
 					<tr>
 						<td>Numero:</td>

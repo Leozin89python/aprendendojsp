@@ -27,7 +27,7 @@ public class ClienteDao implements RepositoryCliente {
 
 	@Override
 	public void salvar(ClientePessoaFisica clientePessoaFisica) {
-		String sql = "INSERT INTO cliente_pessoa_fisica(nome, cpf, dataNacimento, endereco, numerologradouro, foto, ativo, sexo)VALUES ( ?, ?, ?, ?, ?, ?, ?, ?);";
+		String sql = "INSERT INTO cliente_pessoa_fisica(nome, cpf, dataNacimento, endereco, numerologradouro, foto, ativo, sexo, experiencia)VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 		try {
 			PreparedStatement insert = connection.prepareStatement(sql);
 			constroiStatement(clientePessoaFisica, insert);
@@ -46,7 +46,7 @@ public class ClienteDao implements RepositoryCliente {
 
 	@Override
 	public void atualiza(ClientePessoaFisica clientePessoaFisica) {
-		String sql = "UPDATE cliente_pessoa_fisica SET nome=?, cpf=?, dataNacimento=?, endereco=?, numeroLogradouro=?, foto =?, ativo=?, sexo=? where id = "
+		String sql = "UPDATE cliente_pessoa_fisica SET nome=?, cpf=?, dataNacimento=?, endereco=?, numeroLogradouro=?, foto =?, ativo=?, sexo=?, experiencia=? where id = "
 				+ clientePessoaFisica.getId();
 		try {
 			PreparedStatement update = connection.prepareStatement(sql);
@@ -131,6 +131,7 @@ public class ClienteDao implements RepositoryCliente {
 		obClientePessoaFisica.setNumeroLogradouro(resultSet.getInt("numerologradouro"));
 		obClientePessoaFisica.setAtivo(resultSet.getBoolean("ativo") ? "checked" : "unchecked");
 		obClientePessoaFisica.setSexo(resultSet.getString("sexo"));
+		obClientePessoaFisica.setExperiencia(resultSet.getString("experiencia"));
 		
 		obClientePessoaFisica.setFoto(resultSet.getString("foto"));
 		
@@ -169,6 +170,7 @@ public class ClienteDao implements RepositoryCliente {
 		insert.setString(6, clientePessoaFisica.getFoto());
 		insert.setBoolean(7,  clientePessoaFisica.getAtivo().equals("checked") ? true : false);
 		insert.setString(8, clientePessoaFisica.getSexo());
+		insert.setString(9, clientePessoaFisica.getExperiencia());
 	}
 
 	@Override
